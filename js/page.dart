@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'dart:convert' as Convert;
 import 'package:json_to_dart/json_to_dart.dart';
 import 'package:json_ast/json_ast.dart';
 import 'package:json_to_dart/syntax.dart';
@@ -63,7 +64,7 @@ void main() {
     var json = editor.getValue();
     dynamic obj;
     try {
-      obj = jsonParse(json);
+      obj = decodeJSON(json);
     } catch (e) {
       syntaxError = true;
       if (jsonChanged) {
@@ -72,7 +73,7 @@ void main() {
     }
     if (!syntaxError) {
       if (jsonChanged) {
-        json = jsonStringify(obj, null, 4);
+        json = Convert.JsonEncoder.withIndent('    ').convert(obj);
         editor.setValue(json);
       }
       editor.getSession().clearAnnotations();
