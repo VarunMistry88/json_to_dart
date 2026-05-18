@@ -10,3 +10,9 @@ dependencies:
   js: "^0.6.3"
   convert: "^3.0.1"
   dart_style: "^2.2.1"
+
+dependency_overrides:
+  json_ast:
+    path: ./json_ast_local
+  json_to_dart:
+    path: ./json_to_dart_local

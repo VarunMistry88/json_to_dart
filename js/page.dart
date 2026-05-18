@@ -15,6 +15,8 @@ void main() {
   final highlightedDartCode = document.querySelector('pre code.dart');
   final CheckboxInputElement usePrivateFieldsCheckbox =
       document.querySelector('#private-fields') as CheckboxInputElement;
+  final CheckboxInputElement generateToJsonCheckbox =
+      document.querySelector('#generate-tojson') as CheckboxInputElement;
   final ButtonElement copyClipboardButton =
       document.querySelector('#copy-clipboard') as ButtonElement;
   final TextAreaElement hiddenElement =
@@ -57,8 +59,11 @@ void main() {
       json = jsonStringify(obj, null, 4);
       editor.setValue(json);
       editor.getSession().clearAnnotations();
-      final modelGenerator =
-          new ModelGenerator(dartClassName, usePrivateFieldsCheckbox.checked!);
+      final modelGenerator = new ModelGenerator(
+          dartClassName,
+          usePrivateFieldsCheckbox.checked!,
+          null,
+          generateToJsonCheckbox.checked!);
       DartCode? dartCode;
       try {
         dartCode = modelGenerator.generateDartClasses(json);
