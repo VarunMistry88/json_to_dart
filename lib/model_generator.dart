@@ -22,16 +22,25 @@ class Hint {
 class ModelGenerator {
   final String _rootClassName;
   final bool _privateFields;
+  final bool _generateToJson;
   List<ClassDefinition> allClasses = <ClassDefinition>[];
   final Map<String, String> sameClassMapping = new HashMap<String, String>();
   late List<Hint> hints;
 
-  ModelGenerator(this._rootClassName, [this._privateFields = false, hints]) {
-    if (hints != null) {
-      this.hints = hints;
-    } else {
-      this.hints = <Hint>[];
-    }
+  ModelGenerator(this._rootClassName,
+      [this._privateFields = false,
+      List<Hint>? hints,
+      this._generateToJson = false]) {
+    this.hints = hints ?? <Hint>[];
+  }
+
+  ModelGenerator.withOptions(this._rootClassName,
+      {bool privateFields = false,
+      List<Hint>? hints,
+      bool generateToJson = false})
+      : _privateFields = privateFields,
+        _generateToJson = generateToJson {
+    this.hints = hints ?? <Hint>[];
   }
 
   Hint? _hintForPath(String path) {
@@ -54,7 +63,7 @@ class ModelGenerator {
       final Map<dynamic, dynamic> jsonRawData = jsonRawDynamicData;
       final keys = jsonRawData.keys;
       ClassDefinition classDefinition =
-          new ClassDefinition(className, _privateFields);
+          new ClassDefinition(className, _privateFields, _generateToJson);
       keys.forEach((key) {
         TypeDefinition typeDef;
         final hint = _hintForPath('$path/$key');

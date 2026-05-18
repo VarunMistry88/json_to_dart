@@ -2,9 +2,29 @@
 
 [![Build Status](https://travis-ci.org/javiercbk/json_to_dart.svg?branch=master)](https://travis-ci.org/javiercbk/json_to_dart)
 
-Given a JSON string, this library will generate all the necessary Dart classes to parse and generate JSON.
+Given a JSON string, this library will generate all the necessary Dart classes to parse JSON. JSON generation with `toJson()` methods can be enabled when needed.
 
 This library is designed to generate Flutter friendly model classes following the [flutter's doc recommendation](https://flutter.io/json/#serializing-json-manually-using-dartconvert).
+
+
+## Options
+
+By default, generated classes include `fromJson` parsing constructors but do not include
+`toJson()` methods:
+
+```dart
+final generator = ModelGenerator('Sample');
+```
+
+Set `generateToJson` with the options constructor to generate `toJson()` methods:
+
+```dart
+final generator = ModelGenerator.withOptions('Sample', generateToJson: true);
+```
+
+The default constructor still supports the existing private-field and type-hint
+positional arguments. For backwards-compatible positional usage, pass `true` as
+the fourth argument.
 
 ## Caveats
 

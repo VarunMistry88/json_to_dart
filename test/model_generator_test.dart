@@ -1,10 +1,30 @@
 import 'dart:io';
 import 'dart:convert';
 import 'package:test/test.dart';
+import 'package:json_to_dart/json_to_dart.dart' show ModelGenerator;
 import './generated/sample.dart';
 
 void main() {
   group("model-generator", () {
+    test("Generated code should omit toJson by default", () {
+      final jsonRawData =
+          new File("test_resources/test.json").readAsStringSync();
+      final generator = ModelGenerator('Sample');
+      final dartCode = generator.generateDartClasses(jsonRawData);
+      expect(dartCode.code.contains('toJson()'), equals(false));
+      expect(dartCode.code.contains('fromJson'), equals(true));
+    });
+
+    test("Generated code should include toJson when enabled", () {
+      final jsonRawData =
+          new File("test_resources/test.json").readAsStringSync();
+      final generator =
+          ModelGenerator.withOptions('Sample', generateToJson: true);
+      final dartCode = generator.generateDartClasses(jsonRawData);
+      expect(dartCode.code.contains('toJson()'), equals(true));
+      expect(dartCode.code.contains("data['personalInfo']"), equals(true));
+    });
+
     test("Generated class should correctly parse JSON", () {
       final jsonRawData =
           new File("test_resources/test.json").readAsStringSync();
