@@ -1,6 +1,6 @@
 # JSON to Dart
 
-[![Build Status](https://travis-ci.org/javiercbk/json_to_dart.svg?branch=master)](https://travis-ci.org/javiercbk/json_to_dart)
+[![Build Status](https://travis-ci.org/VarunMistry88/json_to_dart.svg?branch=master)](https://github.com/VarunMistry88/json_to_dart)
 
 Given a JSON string, this library will generate all the necessary Dart classes to parse JSON. JSON generation with `toJson()` methods can be enabled when needed.
 
