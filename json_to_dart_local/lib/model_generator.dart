@@ -23,6 +23,7 @@ class ModelGenerator {
   final String _rootClassName;
   final bool _privateFields;
   final bool _generateToJson;
+  final List<String> _ignoredFields;
   List<ClassDefinition> allClasses = <ClassDefinition>[];
   final Map<String, String> sameClassMapping = new HashMap<String, String>();
   late List<Hint> hints;
@@ -30,16 +31,19 @@ class ModelGenerator {
   ModelGenerator(this._rootClassName,
       [this._privateFields = false,
       List<Hint>? hints,
-      this._generateToJson = false]) {
+      this._generateToJson = false,
+      this._ignoredFields = const []]) {
     this.hints = hints ?? <Hint>[];
   }
 
   ModelGenerator.withOptions(this._rootClassName,
       {bool privateFields = false,
       List<Hint>? hints,
-      bool generateToJson = false})
+      bool generateToJson = false,
+      List<String> ignoredFields = const []})
       : _privateFields = privateFields,
-        _generateToJson = generateToJson {
+        _generateToJson = generateToJson,
+        _ignoredFields = ignoredFields {
     this.hints = hints ?? <Hint>[];
   }
 
@@ -65,6 +69,9 @@ class ModelGenerator {
       ClassDefinition classDefinition =
           new ClassDefinition(className, _privateFields, _generateToJson);
       keys.forEach((key) {
+        if (_ignoredFields.contains(key)) {
+          return;
+        }
         TypeDefinition typeDef;
         final hint = _hintForPath('$path/$key');
         final node = navigateNode(astNode, key);

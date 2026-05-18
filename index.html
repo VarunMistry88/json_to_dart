@@ -32,6 +32,12 @@
                     <label style="display: block; margin-top: 10px;"><input type="checkbox" id="private-fields"> Use private fields</label>
                     <label style="display: block;"><input type="checkbox" id="generate-tojson"> Generate toJson()</label>
                     <button id="copy-clipboard" class="mt-2 btn btn-secondary" disabled>Copy Dart code to clipboard</button>
+                    <div id="exclude-fields-container" class="mt-3" style="display: none;">
+                        <h6 class="text-muted">Detected Fields (Uncheck to exclude)</h6>
+                        <div id="exclude-fields-list" class="border rounded p-2 bg-white" style="max-height: 200px; overflow-y: auto;">
+                            <!-- Dynamic check list goes here -->
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="col-12 col-md-8">
