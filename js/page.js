@@ -28634,10 +28634,10 @@ r=s==="List"
 if(r&&p.b==="DateTime")return o+" = json['"+a+"'].map((v) => DateTime.tryParse(v));"
 else if(s==="DateTime")return o+" = DateTime.tryParse(json['"+a+"']);"
 else if(r){r=A.r(p.b)
-return"if (json['"+a+"'] != null) {\n\t\t\t"+o+" = <"+r+">[];\n\t\t\tjson['"+a+"'].forEach((v) { "+o+"!.add(new "+r+".fromJson(v)); });\n\t\t}"}else{q=p.b
+return"if (json['"+a+"'] != null) {\n\t\t\t"+o+" = <"+r+">[];\n\t\t\tjson['"+a+"'].forEach((v) { "+o+"!.add("+r+".fromJson(v)); });\n\t\t}"}else{q=p.b
 if(q!=null)s=q
-return o+" = json['"+a+"'] != null ? "+("new "+s+".fromJson("+("json['"+a+"']")+")")+" : null;"}}},
-Co(a,b){var s,r=this,q="this."+A.dI(a,b,r)
+return o+" = json['"+a+"'] != null ? "+(s+".fromJson("+("json['"+a+"']")+")")+" : null;"}}},
+Co(a,b){var s,r=this,q=A.dI(a,b,r)
 if(r.d)return"data['"+a+"'] = "+q+";"
 else{s="if ("+q+" != null) {\n      data['"
 if(r.a==="List")return s+a+"'] = "+q+"!.map((v) => "+r.tg("v",!1)+").toList();\n    }"
@@ -28684,7 +28684,7 @@ new A.a5(r,r.$ti.p("a5<1>")).a2(0,new A.pY(this,s))
 r=s.a+="\t}"
 return r.charCodeAt(0)==0?r:r},
 gyW(){var s,r=new A.a9("")
-r.a=""+"\tMap<String, dynamic> toJson() {\n\t\tfinal Map<String, dynamic> data = new Map<String, dynamic>();\n"
+r.a=""+"\tMap<String, dynamic> toJson() {\n\t\tfinal Map<String, dynamic> data = Map<String, dynamic>();\n"
 s=this.d
 new A.a5(s,s.$ti.p("a5<1>")).a2(0,new A.pX(this,r))
 s=r.a=(r.a+="\t\treturn data;\n")+"\t}"
