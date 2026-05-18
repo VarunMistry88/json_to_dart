@@ -155,10 +155,12 @@ class Dependency {
 class ClassDefinition {
   final String _name;
   final bool _privateFields;
+  final bool _generateToJson;
   final Map<String, TypeDefinition> fields = new Map<String, TypeDefinition>();
 
   String get name => _name;
   bool get privateFields => _privateFields;
+  bool get generateToJson => _generateToJson;
 
   List<Dependency> get dependencies {
     final dependenciesList = <Dependency>[];
@@ -172,7 +174,8 @@ class ClassDefinition {
     return dependenciesList;
   }
 
-  ClassDefinition(this._name, [this._privateFields = false]);
+  ClassDefinition(this._name,
+      [this._privateFields = false, this._generateToJson = false]);
 
   bool operator ==(other) {
     if (other is ClassDefinition) {
@@ -321,10 +324,11 @@ class ClassDefinition {
   }
 
   String toString() {
+    final jsonGenFunc = generateToJson ? '\n\n$_jsonGenFunc' : '';
     if (privateFields) {
-      return 'class $name {\n$_fieldList\n\n$_defaultPrivateConstructor\n\n$_gettersSetters\n\n$_jsonParseFunc\n\n$_jsonGenFunc\n}\n';
+      return 'class $name {\n$_fieldList\n\n$_defaultPrivateConstructor\n\n$_gettersSetters\n\n$_jsonParseFunc$jsonGenFunc\n}\n';
     } else {
-      return 'class $name {\n$_fieldList\n\n$_defaultConstructor\n\n$_jsonParseFunc\n\n$_jsonGenFunc\n}\n';
+      return 'class $name {\n$_fieldList\n\n$_defaultConstructor\n\n$_jsonParseFunc$jsonGenFunc\n}\n';
     }
   }
 }
